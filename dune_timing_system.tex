@@ -1,0 +1,156 @@
+\documentclass{article}
+%\documentclass[final]{dune}
+\usepackage[utf8]{inputenc}
+
+\usepackage{graphicx}
+
+\usepackage{float}
+
+\usepackage{xspace}
+
+% if we aren't using the DUNE class then we need the packages...
+\usepackage{siunitx}
+% end of packages included instead of using DUNE
+
+\input{units.tex}
+\usepackage[hidelinks]{hyperref}
+\input{defs.tex}
+\input{glossary.tex}
+\title{DUNE Far Detector Timing and Synchronization System}
+\author{David Cussans }
+\date{October 2019}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+%\subsection{Timing and Synchronization}
+%\label{sec:fd-daq-timing}
+
+% \metainfo{David Cussans \& Kostas Manolopoulos.  This is an SP-specific section.  It's file is \texttt{far-detector-single-phase/chapter-fdsp-daq/design-timing.tex}}
+
+%Describe the generation of timing/synchronisation signals and and distribution to the detectors.
+
+All components of the \dword{fd} are driven with clocks derived from a single GPS disciplined source. Components of the \dword{spmod} are
+synchronized to a \SI{62.5}{\MHz} clock. Components of the \dword{dpmod} are synchronized to a \SI{125}{\MHz} clock. The two clocks are locked together.
+
+In order make full use of the
+information from the \dword{pds}, the common clock must be
+aligned within a single \dword{detunit} with an accuracy of $O\,1$\si{ns}.
+In order to form a common trigger for \dword{snb} between
+\dwords{detmodule}, the timing between them must be aligned with an
+accuracy of $O\,1$\si{ms}.  However, a tighter constraint is the need to
+calibrate the common clock to universal time (derived from GPS) in
+order to adjust the data selection algorithm inside an accelerator
+spill, which requires an absolute accuracy of $O\,1$\si{\micro\s}.
+
+\single and \dual \dwords{detmodule} use different timing systems,
+driven by the different technical requirements and development history
+of the two technologies. %systems. 
+A \dword{spmod} has many more
+timing end points than a \dword{dpmod} and many of the end points
+are simpler than the end points in the \dual{}, for example a \dword{wib}
+versus \dword{utca} crate. Both systems have been successfully prototyped and the DUNE-SP system has been sucessfully used at protoDUNE-SP.
+
+\section{Single Phase}
+
+The DUNE \dword{spmod} uses a development of the \dword{pdsp} timing system. 
+Synchronization messages are transmitted over a serial
+data stream with the clock embedded in the data. The format is
+described in 
+% DUNE DocDB-1651~\cite{docdb-1651}. 
+DUNE DocDB-1651. 
+Figure~\ref{fig:daq-readout-timing}
+shows the overall arrangement of components within the \dword{spts}
+%\single Timing System (SPTS). 
+% \fixme{need a gloss term?}
+A stable master clock, disciplined with a \SI{10}{\MHz}
+reference is used in the \dword{spts}. An \dword{irig} signal is
+also received by the system and used to set the \dword{spts} 64-bit time-stamp. However the periodic synchronization
+messages distributed to the \dword{sp} \dword{detmodule} are an exact number
+of clock cycles apart even if there is jitter in the \dword{irig} signal.
+%\fixme{Need reference added for DocDB-1651.}  done - ATH, 4/16/18
+
+The GPS signal is encoded onto optical fiber and transmitted to the
+\dword{cuc}, where it is converted back to an RF signal on coaxial cable and
+used as the input to a GPS disciplined oscillator. The oscillator module
+also houses a IEEE 1588 (PTP) grandmaster and a source of IRIG-G time codes. The PTP grandmaster provides a timing signal for the \dword{dp} \dword{wr}
+timing network. The IRIG-G time code provides an absolute time for the \dword{spts} by comparing the IRIG-G time code with the \dword{spts} time counter and reading.
+
+The latency from the GPS antenna on the surface to the \dword{dts} master in
+the \dword{cuc} will be compensated for by measuring the round trip delay over a single mode fibre in the same bundle at the raw GPS signal coming from the antenna. 
+
+The \dword{wr} synchronization signals from the \dword{dp} \dword{detmodule} are
+time-stamped onto the \dword{spts} clock domain and the \dword{spts} synchronization
+signals are time stamped onto the \dword{dp} clock domain. This allows
+the timing in the \dword{sp} and \dword{dp} \dwords{detmodule} to be
+aligned. A similar scheme is used to relate the \dword{pdsp}
+ timing domain to the beam instrumentation
+\dword{wr} time domain.
+
+In order to provide redundancy, and also the ability to easily detect
+issues with the timing path, two independent GPS systems are used. One
+with an antenna at the head of the Yates Shaft, the other with an
+antenna at the head of the Ross Shaft. The two independent timing
+paths are brought together in the same rack in the \dword{cuc}. Using 1:2
+fibre splitters one \dword{spts} unit can be left as a hot spare while the
+other is active. This also allows testing of new firmware and software
+during commissioning without the risk of losing the \dword{spts} if a bug is
+introduced.
+
+
+%\begin{dunefigure}[Arrangement of components in DUNE timing system]{fig:daq-readout-timing}
+%  {Illustration of the components in the DUNE timing system.}
+%  % Generated using draw.io online tool from daq-timing-block-diagram-tdr_2nov18.html
+%\includegraphics[width=0.8\textwidth]{daq-timing-block-diagram-tdr_2nov18.pdf}
+%\end{dunefigure}
+
+\begin{figure}[H]
+  % Generated using draw.io online tool from daq-timing-block-diagram-tdr_2nov18.html
+\includegraphics[width=0.8\textwidth]{daq-timing-block-diagram-tdr_2nov18.pdf}
+\caption{Illustration of the components in the DUNE timing system.}
+\label{fig:daq-readout-timing}
+\end{figure}
+
+
+All the custom electronic components for the \dword{spts} are contained in two
+\dword{utca} shelves. At any one time one is active and the other is a
+hot spare. The \SI{10}{\MHz} reference clock and the \dword{pps} are received
+by a single width \dword{amc} at the center of the \dword{utca} shelf. This
+master timing \dword{amc} is a custom board and produces the \dword{spts} signals and encodes them onto a
+serial data stream. This serial datastream is distributed over a
+standard star-point backplane to each of the fanout \dword{amc}. The fanout \dword{amc} is an off-the-self board, probably the ohwr.org hosted "AMC FMC Carrier" design, carrying two custom \dword{fmc}. Each \dword{fmc} has four SFP cages. The SFP cages are either occupied by
+1000Base-BX SFPs, each of which connects to a fiber running to an \dword{apa},
+or to a Direct Attach cable which connects to systems elsewhere in the
+\dword{cuc}. This
+arrangement is shown in Figure~\ref{fig:daq-readout-sp-timing}
+
+
+%\begin{dunefigure}[Arrangement of components in \dlong{sp} timing system]{fig:daq-readout-sp-timing}
+%  {Illustration of the components in the \single timing system.}
+%  % Generated using draw.io online tool from DUNE_SP_Timing_1nov18.html
+%  \includegraphics[width=0.8\textwidth]{DUNE_SP_Timing_1nov18.pdf}
+%\end{dunefigure}
+
+\begin{figure}[H]
+  % Generated using draw.io online tool from DUNE_SP_Timing_1nov18.html
+  \includegraphics[width=0.8\textwidth]{DUNE_SP_Timing_1nov18.pdf}
+  \caption{Illustration of the components in the \single timing system.}
+  \label{fig:daq-readout-sp-timing}
+\end{figure}
+
+\subsection{Commissioning}
+
+The \dword{dts} will be one of the first DAQ components installed in the CUC so that timing and synchronization signals are available the other components of the DAQ as soon as they start to be installed. Early in the construction project \dword{spts} ``development kits'' will be made available. The kits will include the hardware and software needed to produce \dword{spts} timing signal. This will allow the teams developing the DUNE readout systems to integrate with the \dword{spts} early in the development process. Hardware and software will also be available for use in vertical slice tests and the \dword{itf}. 
+
+\section{Dual Phase}
+
+The \dword{dpmod} uses the \dword{wr} implementation of the IEEE1588-2008 timing distribution standard. The components that distribute the timing signals are included in the scope of the \dword{dp} readout electronics and are not described here. The interface between the \dword{dts} and the \dword{dp} readout electronics is by means of 1000Base-BX \dword{sfp} coupled by single mode fibre. There will be two fibres carrying IEEE1588-2008 timing signals supplied to the \dword{dp} readout electronics, one from each of the two GPS receivers.
+
+\input{design-timing-beam}
+
+\printglossary
+
+\end{document}

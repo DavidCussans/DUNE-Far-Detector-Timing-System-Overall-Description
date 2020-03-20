@@ -106,7 +106,7 @@
   or is collected on the electrode}
 
 %anode plane assembly
-\newduneabbrevs{apa}{APA}{anode plane assembly}{anode plane assemblies}{A unit of the \single
+\newduneabbrevs{apa}{APA}{Anode Plane Assembly}{anode plane assemblies}{A unit of the \single
   detector module containing the elements sensitive to ionization in the \lar. 
   It contains two faces each of three planes of wires, and interfaces to the cold
   electronics and photon detection system} 
@@ -272,9 +272,15 @@
 
 % FPGA Mezzanine card
 \newduneabbrev{fmc}{FMC}{FPGA Mezzanine Card} {An ANSI/VITA (VMEbus International Trade Association) 57.1 standard that defines I/O mezzanine modules with connection to an FPGA. Can be plugged into an \gls{amc}}
+
+\newduneabbrev{afc}{AFC}{AMC FMC Carrier}{AMC FMC carrier design from ohwr.org}
+
+\newduneabbrev{hpc}{HPC}{high pin count} 
   
 % Small form-factor pluggable transceiver
-\newduneabbrev{sfp}{SFP}{Small form-factor pluggable transceiver} {A hot-pluggable transceiver for carrying Gigabit/s serial signals. The transport medium is usually an optical fiber}
+\newduneabbrev{sfp}{SFP}{Small Form-Factor Pluggable} {A hot-pluggable transceiver for carrying Gigabit/s serial signals. The transport medium is usually an optical fiber}
+
+\newduneabbrev{ccm}{CCM}{Configuration Control and Management Control} {A system to manage and record changes to the experiment's configuration.}
 
 %radio frequency
 \newduneabbrev{rf}{RF}{radio frequency}{Electromagnetic emissions
@@ -439,9 +445,28 @@ span a contiguous period of time as requested by a \gls{trigcommand}}
   electrical signal with a fast rise time and that arrives in real
   time with a precise period of one second}
 
+% UTC
+\newduneabbrev{utc}{UTC}{Coordinated Universal Time}{Coordinated Universal Time is the primary time standard by which the world regulates clocks and time.}
+
 % 
-\newduneabbrev{irig}{IRIG}{Inter-range instrumentation group time code}{An amplitude modulated carrier encoded with UTC time. Current standard is IRIG 200-04}
-  
+\newduneabbrev{irig}{IRIG}{Inter-Range Instrumentation Group}{An amplitude modulated carrier encoded with UTC time. Current standard is IRIG 200-04}
+
+%gps interface board
+\newduneabbrev{gib}{GIB}{GPS Interface Board}{interface to the GPS receiver} 
+ 
+%utca interface board
+\newduneabbrev{mib}{MIB}{$\mu$TCA Interface Board}{interface to the crate} 
+
+%fib interface board
+\newduneabbrev{fib}{FIB}{Fibre Interface Board}{interface to the timing endpoints} 
+
+%mch
+\newduneabbrev{mch}{MCH}{$\mu$TCA Carrier Hub}{uTCA crate controller} 
+
+\newduneabbrev{gpsdo}{GPSDO}{GPS Disciplined Oscillator}{A crystal oscillator steered by GPS}
+
+\newduneabbrev{oxco}{OXCO}{Oven Controlled Crystal Oscillator}{A quartz crystal, housed in a temperature-controlled chamber, so that a constant temperature is maintained, in order to prevent changes in the frequency due to variations in ambient temperature}
+
 %spill location system
 \newduneabbrev{sls}{SLS}{spill location system}{A system residing at
   the DUNE far detector site that provides information, possibly
@@ -499,11 +524,9 @@ modern multi-core and networked computers}
 
 %beamline
 \newduneword{beamline}{beamline}{A sequence of control and monitoring devices used for the formation of a directed collection of particles}
-%conceptual design report
-\newduneabbrev{cdr}{CDR}{conceptual design report}{A formal project
-  document %required by funding agencies
-   that describes the experiment
-  at a conceptual level}
+
+%clock data recovery
+\newduneabbrev{cdr}{CDR}{clock-data recovery}{Clock-data recovery}
 
 %conventional facilities
 \newduneabbrev{cf}{CF}{conventional facilities}{Pertaining to
@@ -846,16 +869,25 @@ milestone on the path to a full \gls{tdr}} % changed from ``technical proposal''
 \newduneabbrev{sftchimney}{SFT chimney}{signal feedthrough chimney}{In the \dual technology, a volume above the cryostat penetration used for a signal feedthrough}
 
 
+\newduneword{ccm}{CCM}{Control Configuration and Management}
+
 \newduneword{catiroc}{CATIROC}{charge and time integrated readout chip}
 
 \newduneabbrev{wr}{WR}{White Rabbit}{An implementation of the IEEE-1588 standard. Used by the dual phase readout. It is used to forward the clock signal and time-of-day reference data from the DUNE timing system to the dual phase readout}
 
+\newduneabbrev{pdsp1}{ProtoDUNE SP I}{ProtoDUNE Single Phase I}{The first phase of the ProtoDUNE Single Phase experiment at CERN.}
 
-\newduneabbrev{dts}{DTS}{Dune Timing System}{The timing and synchronization system for DUNE.}
+\newduneabbrev{pdsp2}{ProtoDUNE SP II}{ProtoDUNE Single Phase II}{The second phase of the ProtoDUNE Single Phase experiment at CERN.}
 
-\newduneabbrev{spts}{SPTS}{Single Phase Timing System}{A timing and synchronization system developed for DUNE. Like White Rabbit it distributes a clock and synchronization signals, but places considerably less burden on the end-points }
+\newduneabbrev{dts}{DTS}{Dune Timing System}{The timing and synchronization system for DUNE. An umbrella term encompassing both the \single and \dual detector module timing systems}
 
-\newduneabbrev{mch}{MCH}{MicroTCA Carrier Hub}{An network switching device}
+\newduneabbrev{utc}{UTC}{Coordinated Universal Time}{Coordinated Universal Time is the primary time standard by which the world regulates clocks and time}
+
+\newduneabbrev{spts}{SPTS}{Single Phase Timing System}{A timing and synchronization system deployed at ProtoDUNE SP I. It distributes a clock and synchronization signals, but places considerably less burden on the end-points.}
+
+\newduneabbrev{spdts}{SPDTS}{Single Phase DUNE Timing System}{A timing and synchronization system which will be developed and deployed at ProtoDUNE SP II, and eventually DUNE. It will distribute clock and synchronisations signal to \single detector modules only.}
+
+\newduneabbrev{dpdts}{DPDTS}{Dual Phase DUNE Timing System}{A timing and synchronization system which is deployed at ProtoDUNE DP, and eventually DUNE. It will distribute clock and synchronisations signal to \dual detector modules only.}
 
 \newduneabbrev{wrmch}{WR-MCH}{White Rabbit \gls{utca} Carrier Hub}{add def} %??
 
@@ -913,7 +945,7 @@ milestone on the path to a full \gls{tdr}} % changed from ``technical proposal''
 \newduneabbrev{las}{LAS}{LEM-anode Sandwich}{In the \dual technology, a \gls{lem} and its corresponding anode are mounted together in a module called a LEM-anode sandwich}
 
 \newduneword{roi}{ROI}{region of interest}
-\newduneword{hpc}{HPC}{high-performance computing facilities; generally computing facilities emphasizing parallel computing with aggregate power of more than a teraflop}
+\newduneword{hpc}{HPC}{high pin count}
 
 
 \newduneword{comfund}{common fund}{The shared resources of the collaboration}

@@ -3,8 +3,8 @@
 % Document class for Conceptual Design Report
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{cdr}[2015/02/02]
-\LoadClass[12pt,letterpaper]{report}
+\ProvidesClass{dune}[2015/02/02]
+\LoadClass[12pt,letterpaper]{article}
 
 \RequirePackage[letterpaper,margin=2cm]{geometry}
 

@@ -84,12 +84,12 @@
   Lead, SD, to be composed of four \nominalmodsize modules}
 
 %single-phase
-\newduneabbrev{sp}{SP}{single-phase}{Distinguishes one of the DUNE far detector technologies by the fact that it operates using argon in its liquid phase only
+\newduneabbrev{sp}{SP}{Single-Phase}{Distinguishes one of the DUNE far detector technologies by the fact that it operates using argon in its liquid phase only
   %Distinguishes one of the four  \SI{10}{\kton} \glspl{detmodule} of the DUNE far detector by the  fact that it operates using argon in just its liquid phase}
   }
 
 %dual-phase
-\newduneabbrev{dp}{DP}{dual-phase}{Distinguishes one of the DUNE far detector technologies by the fact that it operates using argon %Distinguishes one of the four \SI{10}{\kton} \glspl{detmodule} of the DUNE far detector by the fact that it operates using argon 
+\newduneabbrev{dp}{DP}{Dual-Phase}{Distinguishes one of the DUNE far detector technologies by the fact that it operates using argon %Distinguishes one of the four \SI{10}{\kton} \glspl{detmodule} of the DUNE far detector by the fact that it operates using argon 
  in both gas and liquid phases}
 
 %photon detection system
@@ -138,7 +138,7 @@
   data and delivers the result to the offline \gls{diskbuffer}}
 
 %detector module
-\newduneword{detmodule}{detector module}{The entire DUNE far detector is
+\newduneword{detmodule}{Detector Module}{The entire DUNE far detector is
   segmented into four modules, each with a nominal \SI{10}{\kton}
   fiducial mass}
 
@@ -267,7 +267,7 @@
   checksums, requires no handshaking, and does not guarantee packet delivery}
 
 %advanced meazzanine card
-\newduneabbrev{amc}{AMC}{advanced mezzanine card}{Holds digitizing
+\newduneabbrev{amc}{AMC}{Advanced Mezzanine Card}{Holds digitizing
   electronics and lives in \gls{utca} crates}
 
 % FPGA Mezzanine card
@@ -275,8 +275,6 @@
 
 \newduneabbrev{afc}{AFC}{AMC FMC Carrier}{AMC FMC carrier design from ohwr.org}
 
-\newduneabbrev{hpc}{HPC}{high pin count} 
-  
 % Small form-factor pluggable transceiver
 \newduneabbrev{sfp}{SFP}{Small Form-Factor Pluggable} {A hot-pluggable transceiver for carrying Gigabit/s serial signals. The transport medium is usually an optical fiber}
 
@@ -452,16 +450,19 @@ span a contiguous period of time as requested by a \gls{trigcommand}}
 \newduneabbrev{irig}{IRIG}{Inter-Range Instrumentation Group}{An amplitude modulated carrier encoded with UTC time. Current standard is IRIG 200-04}
 
 %gps interface board
-\newduneabbrev{gib}{GIB}{GPS Interface Board}{interface to the GPS receiver} 
+\newduneabbrev{gib}{GIB}{GPS Interface Board}{Interface to the GPS receiver} 
  
 %utca interface board
-\newduneabbrev{mib}{MIB}{$\mu$TCA Interface Board}{interface to the crate} 
+\newduneabbrev{mib}{MIB}{\gls{utca} Interface Board}{Interface between the GIB and $u$TCA crate, as well as AMCs} 
 
 %fib interface board
 \newduneabbrev{fib}{FIB}{Fibre Interface Board}{interface to the timing endpoints} 
 
 %mch
 \newduneabbrev{mch}{MCH}{$\mu$TCA Carrier Hub}{uTCA crate controller} 
+
+%\newduneabbrev{eti}{ETI}{External Trigger Interface}{Units receiving external signals into the \dword{spdts}}
+\newduneabbrev{hsi}{HSI}{Hardware Signal Interface}{Units receiving external signals into the \dword{spdts}}
 
 \newduneabbrev{gpsdo}{GPSDO}{GPS Disciplined Oscillator}{A crystal oscillator steered by GPS}
 
@@ -526,7 +527,7 @@ modern multi-core and networked computers}
 \newduneword{beamline}{beamline}{A sequence of control and monitoring devices used for the formation of a directed collection of particles}
 
 %clock data recovery
-\newduneabbrev{cdr}{CDR}{clock-data recovery}{Clock-data recovery}
+\newduneabbrev{cdr}{CDR}{Clock-Data Recovery}{Clock-data recovery}
 
 %conventional facilities
 \newduneabbrev{cf}{CF}{conventional facilities}{Pertaining to
@@ -680,8 +681,8 @@ milestone on the path to a full \gls{tdr}} % changed from ``technical proposal''
   applied to drive the motion of free electrons through some media}
 
 % can also use in the text: \dword{sp} \dword{detmodule} 
-\newduneword{spmod}{SP module}{single-phase detector module}
-\newduneword{dpmod}{DP module}{dual-phase detector module}
+\newduneword{spmod}{SP module}{Single-Phase detector module}
+\newduneword{dpmod}{DP module}{Dual-Phase detector module}
 
 \newduneabbrev{tc}{TC}{technical coordination}{A dedicated DUNE
   project effort responsible for assuring proper interfaces between
@@ -868,9 +869,6 @@ milestone on the path to a full \gls{tdr}} % changed from ``technical proposal''
 \newduneabbrev{sft}{SFT}{signal feedthrough}{A cryostat penetration allowing for the passage of cables or other extended parts}
 \newduneabbrev{sftchimney}{SFT chimney}{signal feedthrough chimney}{In the \dual technology, a volume above the cryostat penetration used for a signal feedthrough}
 
-
-\newduneword{ccm}{CCM}{Control Configuration and Management}
-
 \newduneword{catiroc}{CATIROC}{charge and time integrated readout chip}
 
 \newduneabbrev{wr}{WR}{White Rabbit}{An implementation of the IEEE-1588 standard. Used by the dual phase readout. It is used to forward the clock signal and time-of-day reference data from the DUNE timing system to the dual phase readout}
@@ -881,13 +879,11 @@ milestone on the path to a full \gls{tdr}} % changed from ``technical proposal''
 
 \newduneabbrev{dts}{DTS}{Dune Timing System}{The timing and synchronization system for DUNE. An umbrella term encompassing both the \single and \dual detector module timing systems}
 
-\newduneabbrev{utc}{UTC}{Coordinated Universal Time}{Coordinated Universal Time is the primary time standard by which the world regulates clocks and time}
-
 \newduneabbrev{spts}{SPTS}{Single Phase Timing System}{A timing and synchronization system deployed at ProtoDUNE SP I. It distributes a clock and synchronization signals, but places considerably less burden on the end-points.}
 
-\newduneabbrev{spdts}{SPDTS}{Single Phase DUNE Timing System}{A timing and synchronization system which will be developed and deployed at ProtoDUNE SP II, and eventually DUNE. It will distribute clock and synchronisations signal to \single detector modules only.}
+\newduneabbrev{spdts}{DTS-SP}{DUNE Timing System-Single Phase}{A timing and synchronization system which will be developed and deployed at ProtoDUNE SP II, and eventually DUNE. It will distribute clock and synchronisations signal to \single detector modules only.}
 
-\newduneabbrev{dpdts}{DPDTS}{Dual Phase DUNE Timing System}{A timing and synchronization system which is deployed at ProtoDUNE DP, and eventually DUNE. It will distribute clock and synchronisations signal to \dual detector modules only.}
+\newduneabbrev{dpdts}{DTS-DP}{DUNE Timing System-Dual Phase}{A timing and synchronization system which is deployed at ProtoDUNE DP, and eventually DUNE. It will distribute clock and synchronisations signal to \dual detector modules only.}
 
 \newduneabbrev{wrmch}{WR-MCH}{White Rabbit \gls{utca} Carrier Hub}{add def} %??
 
